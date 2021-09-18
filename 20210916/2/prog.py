@@ -1,3 +1,3 @@
 nums = eval(input())
-nums.sort()
+nums = sorted(nums)
 print(nums)
