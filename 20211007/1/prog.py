@@ -7,3 +7,4 @@ def Pareto(*pairs):
         else:
             result.append((x,y))
     return tuple(result)
+print(Pareto(*eval(input())))
