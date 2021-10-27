@@ -1,0 +1,8 @@
+:fr f range(f)
+:br b print(b)
+:george g g**2+g
+fr 100
+br "QQ"
+george 100500
+quit QKRQ
+
