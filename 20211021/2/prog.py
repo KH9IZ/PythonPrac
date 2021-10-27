@@ -1,19 +1,17 @@
 import math
-fs = {}
-vals = {}
+
+cntr = 0
+fs = {'quit': ('print(formats.format(len(fs), cntr)) or quit()', 'formats')}
+
 while True:
     s = input()
+    cntr += 1
     if s.startswith(':'):
-        s = s.split()
-        f = s[0][1:]
-        v = s[1]
-        e = ' '.join(s[2:])  # Возможны ошибкИ?
-        fs[f] = (e, v)
-    elif s.split()[0] == 'quit':
-        print(len(fs) + 1)
-        break
+        name, *vals, expression = s.split()
+        name = name[1:]
+        fs[name] = (expression, *vals)
     else:
-        s = s.split()
-        e = fs[s[0]][0]
-        v = fs[s[0]][1]
-        print(eval(e, math.__dict__, {v: eval(' '.join(s[1:]))}))
+        name, *vals = s.split()
+        expr, *v_names = fs[name]
+        t = eval(expr, math.__dict__ | {'fs': fs, 'cntr': cntr}, {name: eval(val, math.__dict__) for name, val in zip(v_names, vals)})
+        print(t)
