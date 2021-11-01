@@ -1,0 +1,2 @@
+from itertools import cycle
+print(next(slide(cycle(range(1,5)), 2)))
