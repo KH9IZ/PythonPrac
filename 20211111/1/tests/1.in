@@ -1,0 +1,2 @@
+A = OrderedComplex(1,-5)
+print(A < 2)
