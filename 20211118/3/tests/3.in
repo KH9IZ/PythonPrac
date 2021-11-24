@@ -1,0 +1,3 @@
+a = Alpha(a='a', z='z')
+aq = AlphaQ(a='a', z='z')
+print(Alpha(a=a.a+aq.a, z=a.z+aq.z))

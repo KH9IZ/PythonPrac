@@ -1,0 +1,16 @@
+import timeit
+tmp = f"""
+a = {{}}({', '.join(f'{chr(i)}={i}' for i in range(97, 111))})
+for i in range(111, 123):
+	setattr(a, chr(i), i)
+for i in range(97, 123):
+	if getattr(a, chr(i)) == 0:
+	    print("!")
+"""
+
+print(timeit.timeit(tmp.format("Alpha"), 
+                    setup="from __main__ import Alpha",
+                    number=100) < 
+      timeit.timeit(tmp.format("AlphaQ"), 
+                    setup="from __main__ import AlphaQ", 
+                    number=100))

@@ -1,0 +1,4 @@
+class MyClass:
+    n = Num()
+
+print(MyClass().n)

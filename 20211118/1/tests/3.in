@@ -1,0 +1,9 @@
+@objcount
+class Sardina(str):
+    def __init__(self, a):
+        print(f"{a=}")
+
+print(Sardina('1'))
+print(Sardina.counter)
+one = Sardina('010')
+print(Sardina.counter)

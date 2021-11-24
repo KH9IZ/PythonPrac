@@ -1,0 +1,11 @@
+alp = Alpha()
+try:
+    print(alp.a)
+except AttributeError:
+    print("Gotcha!")
+
+alpq = AlphaQ()
+try:
+    print(alpq.a)
+except AttributeError:
+    print("Again!")

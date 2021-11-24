@@ -1,0 +1,10 @@
+@objcount
+class QkRq:
+    def __del__(self):
+        print("Self destruction...")
+
+my_petux = QkRq()
+print(QkRq.__del__.__name__)
+print(my_petux.counter)
+del my_petux
+print(QkRq.counter)

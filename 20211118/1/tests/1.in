@@ -1,0 +1,10 @@
+@objcount
+class Original:
+    def __init__(self, q, k=0, w=1):
+        print(f"Original init: {q=} {k=} {w=}")
+
+c = [Original(i, chr(i)) for i in range(69, 79)]
+print(c[0].counter)
+print(c[0].__class__.__name__)
+del c
+print(Original.counter)

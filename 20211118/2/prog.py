@@ -3,6 +3,9 @@ class Num:
         return getattr(obj, 'val', 0)
     def __set__(self, obj, val):
         if getattr(val, 'real', None) is not None:
-            obj.val = val
+            obj.val = val.real
         elif getattr(val, '__len__', None) is not None:
             obj.val = len(val)
+
+import sys
+exec(sys.stdin.read())

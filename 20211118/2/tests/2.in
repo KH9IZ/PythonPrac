@@ -1,0 +1,11 @@
+class C:
+    n = Num()
+
+class TMP:
+    real = 999
+    def __len__(self):
+        return 123
+
+c = C()
+c.n = TMP()
+print(c.n)
