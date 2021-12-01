@@ -1,11 +1,9 @@
 import sys
 
-inb = sys.stdin.buffer.read
-outb = sys.stdout.buffer.write
+n = sys.stdin.buffer.read(1)[0]
+sys.stdout.buffer.write(bytes([n]))
 
-n = inb(1)
-outb(n)
-n = n[0]
-s = inb()
-for i in range(n):
-    ...
+b = sys.stdin.buffer.read()
+l = len(b)
+parts = [b[i*l//n : (i+1)*l//n] for i in range(n)]
+sys.stdout.buffer.write(b''.join(sorted(parts)))

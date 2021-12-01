@@ -1,0 +1,24 @@
+import sys
+
+inb = sys.stdin.buffer.read
+outb = sys.stdout.buffer.write
+
+n = inb(1)
+outb(n)
+n = n[0]
+s = inb()
+
+L = len(s) 
+N = n
+i = 1
+
+parts = []
+while L > 0:
+    size = (i*L) // N
+    i+=1
+    print(size, end = ' ')
+    L -= size
+    part, s = s[:size], s[size:]
+    parts.append(part)
+print(parts)
+outb(b''.join(sorted(parts)))
