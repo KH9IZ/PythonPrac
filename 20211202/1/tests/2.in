@@ -1,0 +1,7 @@
+class C(metaclass=dump):
+    ...
+class D(C):
+    def f(self, q, qq='QKRQ'):
+        print(q + qq)
+d = D()
+d.f('- Hi!\n- ')

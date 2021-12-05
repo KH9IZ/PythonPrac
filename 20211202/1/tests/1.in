@@ -1,0 +1,10 @@
+class My(metaclass=dump):
+    def __call__(self, qq):
+        print(qq.__repr__())
+    tmp = lambda self: "smthg"
+    val = 0
+
+my = My()
+my('123')
+my.tmp()
+print(my.val)

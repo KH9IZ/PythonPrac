@@ -1,0 +1,11 @@
+class sqrt(metaclass=dump):
+    def __repr__(self):
+        return "I can take square roooooooot!! =)"
+    def __call__(self, t):
+        if issubclass(type(t), (int, float, complex)):
+            return t ** 0.5
+        return "No no no no no no STOP! What is this?!"
+qq = sqrt()
+print(qq)
+print(f"{qq(2.2):.2f}")
+print(qq('So...'))
