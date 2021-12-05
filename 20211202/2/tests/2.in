@@ -1,0 +1,14 @@
+class MetaMeta(metaclass=check):
+    class UwU: pass
+    kek: UwU = None
+    classs: type = type(complex)
+    poker: QRT
+
+class QRT: pass
+
+mm = MetaMeta()
+print(mm.check_annotations())
+mm.poker = QRT()
+mm.kek = type('UwU^^', (MetaMeta.UwU,), {})()
+
+print(mm.check_annotations())

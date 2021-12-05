@@ -1,0 +1,8 @@
+class ass(metaclass=check):
+    A = 'q'
+    B: int = 'w'
+    C: tuple = (1,2,3)
+j = ass()
+print(j.check_annotations())
+j.B = 1
+print(j.check_annotations())
