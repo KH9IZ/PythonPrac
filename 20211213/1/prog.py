@@ -15,7 +15,7 @@ async def merge(begin0, begin1, end1, l_ev, r_ev, my_ev):
     begin = begin0
 
     while begin0 < end0 and begin1 < end1:
-        if LL[begin0] < L[begin1]:
+        if L[begin0] < L[begin1]:
             LL[i] = L[begin0]
             begin0 += 1
         else:
