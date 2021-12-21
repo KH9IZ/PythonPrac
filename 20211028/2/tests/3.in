@@ -1,1 +1,1 @@
-print(list(slide(iter(range(10)), 4)))
+print(list(slide({1,2,2,3,999}, 4)))

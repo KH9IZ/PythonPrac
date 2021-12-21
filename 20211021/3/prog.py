@@ -1,8 +1,9 @@
 from collections import Counter
+import sys
 n = int(input())
 
 cntr = Counter()
-while s := input():
+while s := sys.stdin.read():
     s = ''.join(c.lower() if c.isalpha() or c.isspace() else ' ' for c in s)
     words_n = [word for word in s.split() if len(word) == n]
     cntr.update(words_n)

@@ -1,9 +1,9 @@
-from itertools import islice, chain
+from itertools import islice, chain, tee
+
 def slide(seq, n):
-    seq = iter(seq)
-    t = list(islice(seq, n))
-    yield from t
-    while (n := list(islice(seq, 1))):
-        yield from (t := (t[1:] + n))
+
+    for i, el in enumerate(tee(seq, len(seq))):
+        yield from islice(el, i, i + n)
+
 import sys
 exec(sys.stdin.read())
