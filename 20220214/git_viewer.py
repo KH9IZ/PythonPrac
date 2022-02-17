@@ -51,11 +51,19 @@ def parse_tree(body):
         details[fname.decode()] = (attrs, object_id)
     return details        
 
-
+spcs = 0
 def print_out_tree(header, size, details):
-    print(f"Object: {header} (size={size})")
+    global spcs
+    # print(f"Object: {header} (size={size})")
     for fname, (attrs, obj_id) in details.items():
-        print(f"  - {fname:<13}({attrs.decode():>6}): {obj_id.hex()}")
+        sub_obj_type, sub_size, sub_body = get_object(obj_id.hex())
+        line = '├' if sub_obj_type != 'tree' else '├┬'
+        print(f"{'│'*spcs}{line}{fname:<13}[{sub_obj_type}]({attrs.decode():^6}): {obj_id.hex()}")
+        if sub_obj_type == 'tree':
+            spcs += 1
+            print_out_tree(sub_obj_type, sub_size, parse_tree(sub_body))
+            spcs -= 1
+            print(f"{'│'*spcs}├┘")
 
 
 match len(sys.argv):
