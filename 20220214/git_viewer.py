@@ -13,7 +13,8 @@ def get_head_commit_id(branch_name):
 
 
 def get_object(object_id):
-    object_path = join('.git', 'objects', object_id[:2], object_id[2:-1])
+    object_id = object_id.strip()
+    object_path = join('.git', 'objects', object_id[:2], object_id[2:])
     with open(object_path, 'rb') as f:
         header, _, body = zlib.decompress(f.read()).partition(b'\x00')
     obj_type, size = header.split()
@@ -41,6 +42,21 @@ def print_out_commit(header, size, commit_details, commit_message):
     print("\n  ", commit_message)
 
 
+def parse_tree(body):
+    details = {}
+    while body:
+        hdr, _, tail = body.partition(b'\00')
+        attrs, _, fname = hdr.partition(b' ')
+        object_id, body = tail[:20], tail[20:]
+        details[fname.decode()] = (attrs, object_id)
+    return details        
+
+
+def print_out_tree(header, size, details):
+    print(f"Object: {header} (size={size})")
+    for fname, (attrs, obj_id) in details.items():
+        print(f"  - {fname:<13}({attrs.decode():>6}): {obj_id.hex()}")
+
 
 match len(sys.argv):
     case 1:
@@ -53,6 +69,10 @@ match len(sys.argv):
         commit_id = get_head_commit_id(branch_name)
         header, size, body = get_object(commit_id)
         commit_details, commit_message = parse_commit(body)
-        print_out_commit(header, size, commit_details, commit_message)
+        #print_out_commit(header, size, commit_details, commit_message)
+        tree_id = commit_details['tree']
+        header, size, body = get_object(tree_id)
+        tree_details = parse_tree(body)
+        print_out_tree(header, size, tree_details)
     case _:
         print("Unknown operands count")
