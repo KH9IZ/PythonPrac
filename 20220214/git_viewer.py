@@ -36,10 +36,12 @@ def parse_commit(body):
 
 
 def print_out_commit(header, size, commit_details, commit_message):
-    print(f"Object: {header} (size={size})")
+    print('╞' + '═' * 70)
+    print(f"│\n╞═ {header.upper()} (size={size})")
     for field, value in commit_details.items():
-        print(f"  - {field:<10}: {value}")
-    print("\n  ", commit_message)
+        print(f"│ - {field:<10}: {value}")
+    commit_message = commit_message.replace('\n', '\n│')
+    print("│\n│ ", commit_message)
 
 
 def parse_tree(body):
@@ -54,7 +56,6 @@ def parse_tree(body):
 spcs = 0
 def print_out_tree(header, size, details):
     global spcs
-    # print(f"Object: {header} (size={size})")
     for fname, (attrs, obj_id) in details.items():
         sub_obj_type, sub_size, sub_body = get_object(obj_id.hex())
         line = '├' if sub_obj_type != 'tree' else '├┬'
@@ -64,6 +65,18 @@ def print_out_tree(header, size, details):
             print_out_tree(sub_obj_type, sub_size, parse_tree(sub_body))
             spcs -= 1
             print(f"{'│'*spcs}├┘")
+
+def log(commit_id):
+    header, size, body = get_object(commit_id)
+    commit_details, commit_message = parse_commit(body)
+    print_out_commit(header, size, commit_details, commit_message)
+    tree_id = commit_details['tree']
+    header, size, body = get_object(tree_id)
+    tree_details = parse_tree(body)
+    print(f"╞═ {header.upper()} (size={size})")
+    print_out_tree(header, size, tree_details)
+    if parents := commit_details.get('parent'):
+        log(parents[0])
 
 
 match len(sys.argv):
@@ -75,12 +88,7 @@ match len(sys.argv):
     case 2:
         branch_name = sys.argv[1]
         commit_id = get_head_commit_id(branch_name)
-        header, size, body = get_object(commit_id)
-        commit_details, commit_message = parse_commit(body)
-        #print_out_commit(header, size, commit_details, commit_message)
-        tree_id = commit_details['tree']
-        header, size, body = get_object(tree_id)
-        tree_details = parse_tree(body)
-        print_out_tree(header, size, tree_details)
+        log(commit_id)
+        print('╞' + '═' * 70)
     case _:
         print("Unknown operands count")
