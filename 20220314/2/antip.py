@@ -23,7 +23,7 @@ keeeek = {'YieldFrom(': 'a', 'MatchMapping(': 'b', 'DictComp(': 'c', 'MatchClass
 prep1 = ''.join(sym if not sym[0].isupper() else keeeek[sym] for sym in re.findall("[A-Z][A-Za-z]*\(|,|\)", dmp1))
 prep2 = ''.join(sym if not sym[0].isupper() else keeeek[sym] for sym in re.findall("[A-Z][A-Za-z]*\(|,|\)", dmp1))
 
-
-if textdistance.damerau_levenshtein.normalized_distance(prep1, prep2) <= 0.1:
-    print("Plagiat")
+diff = textdistance.damerau_levenshtein.normalized_distance(prep1, prep2)
+if diff <= 0.1:
+    print(f"Plagiat {1-diff:.0%}!")
     print(difflib.HtmlDiff().make_file(uni_text1.split('\n'), uni_text2.split('\n')))
