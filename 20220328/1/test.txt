@@ -1,0 +1,11 @@
+add monster name "chu cha" hp 15 coords 0 0
+add monster name Gnoll hp 23 coords 5 7
+add monster name "War Troll" hp 100 coords 4 2
+show monsters
+move up
+move right
+move down
+move left
+move up
+attack "chu cha"
+attack "chu cha"
