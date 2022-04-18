@@ -7,4 +7,4 @@ ngettext = translation.ngettext
 def dialog():
     while s := input(_("Input a string: ")):
         n = len(s.split())
-        print(ngettext("{s} word entered", "{s} words entered", n).format(s=n))
+        print(ngettext("Entered {s} word", "Entered {s} words", n).format(s=n))
